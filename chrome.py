@@ -23,17 +23,24 @@ loginButton.click()
 
 sleep(2)
 
-# find friends
-driver.get("https://www.facebook.com/search/top/?q=seed&f=Aboa9pExa6Rjo_4i_pXhMj1hLVikL6vXYYIQDYQcp9oF2wum2jMQzMvimjryIwO1fsXiKt4G52fUtFa9TQHcipAqJutd7m5s53YN8sfTPVAf1Ar5YHfxa8F89XzfVHAN7iY")
+# get queries
+with open('queries.txt') as queriesFile:
+    queries = queriesFile.read().splitlines()
 
-sleep(2)
+# loop through queries
+for query in queries:
 
-# add friends
-addButtons = driver.find_elements_by_xpath('//div[@aria-label="Add Friend"]')
-for addButton in addButtons:
-    if addButton.is_displayed():
-        addButton.click()
-        sleep(1)
+    # find friends
+    driver.get(f"https://www.facebook.com/search/top/?q={query}&f=Aboa9pExa6Rjo_4i_pXhMj1hLVikL6vXYYIQDYQcp9oF2wum2jMQzMvimjryIwO1fsXiKt4G52fUtFa9TQHcipAqJutd7m5s53YN8sfTPVAf1Ar5YHfxa8F89XzfVHAN7iY")
+
+    sleep(2)
+
+    # add friends
+    addButtons = driver.find_elements_by_xpath('//div[@aria-label="Add Friend"]')
+    for addButton in addButtons:
+        if addButton.is_displayed():
+            addButton.click()
+            sleep(1)
 
 driver.quit()
 
